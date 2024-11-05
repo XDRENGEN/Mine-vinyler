@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vue template</title>
+    <link rel="stylesheet" href="./css/styles.css" /> <!-- Import Styles -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> <!-- Import Vue.js -->
+</head>
+
+
+<body>
+    <!-- HUSK alt vue skal være inde i denne <div> -->
+    <div id="app">
+        <div class = "nav-bar"></div>
+            <h1>{{intro}}</h1>
+    </div>
+    
+
+
+
+    <!-- Import App -->
+    <script src="./js/index.js"></script>
+
+    <!-- Mount App -->
+    <script>
+        const mountedApp = app.mount('#app')
+    </script>
+</body>
+</html>
