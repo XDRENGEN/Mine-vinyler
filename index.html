@@ -14,7 +14,24 @@
     <!-- HUSK alt vue skal være inde i denne <div> -->
     <div id="app">
         <div class = "nav-bar"></div>
-            <h1>{{intro}}</h1>
+            <h1>{{ intro }}</h1>
+
+            <div>Id: <input v-model="newVinyl.id"></div>
+            <div>Artist: <input v-model="newVinyl.artist"></div>
+            <div>Album: <input v-model="newVinyl.album"></div>
+            <div>Year: <input v-model="newVinyl.year"></div>
+            <div>Genre: <input v-model="newVinyl.genre"></div>
+            <div>Label: <input v-model="newVinyl.label"></div>
+
+            <button v-on:click="addMethod">Tilføj vinyl</button>
+
+
+            <h2>Min vinyl samling:</h2>
+            <ul>
+                <li v-for="vinyl in liste" :key="vinyl.id">
+                    {{ vinyl.artist }} - "{{ vinyl.album }}" ({{ vinyl.year }}) - Genre: {{ vinyl.genre }} - Label: {{ vinyl.label }}
+                </li>
+            </ul>
     </div>
     
 
