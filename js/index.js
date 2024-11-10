@@ -12,6 +12,8 @@ const app = Vue.createApp({
                 genre: '',
                 label: '',
             },
+
+            editVinyl: null,
         };
     },
 
@@ -33,11 +35,12 @@ const app = Vue.createApp({
                 this.newVinyl.genre &&
                 this.newVinyl.label
             ) {
+                this.newVinyl.id = Date.now();
+
                 this.liste.push({ ...this.newVinyl });
 
+                // Gemmer i local storage.
                 localStorage.setItem('vinylliste', JSON.stringify(this.liste));
-
- 
 
                 this.newVinyl = {
                     id: null,
@@ -49,10 +52,45 @@ const app = Vue.createApp({
                 };
 
             } else {
+                
                 alert('Udfyld venligst alle felter');
             }
+
         },
-    },
 
 
+        // Metode til at vælge en vinyl til redigering.
+        selectVinylForEdit(vinyl) {
+            this.editVinyl = { ...vinyl };
+        },
+
+
+        // Metode til at gemme redigerede oplysninger.
+        saveEditedVinyl() {
+            const index = this.liste.findIndex(v => v.id === this.editVinyl.id);
+            if (index !== -1) {
+                this.liste.splice(index, 1, { ...this.editVinyl });
+                localStorage.setItem('vinylliste', JSON.stringify(this.liste));
+                this.editVinyl = null;
+            }
+        },
+
+
+
+        // Metode til at slette en vinyl.
+        deleteVinyl(id) {
+            const vinyl = this.liste.find(v => v.id === id);
+
+            if (vinyl) {
+                const confirmation = confirm(`Er du sikker på, at du vil slette ${vinyl.album} af ${vinyl.artist}?`);
+                
+                if (confirmation) {
+                    this.liste = this.liste.filter(v => v.id !== id);
+
+                    // Gemmer i local storage.
+                    localStorage.setItem('vinylliste', JSON.stringify(this.liste));
+                }
+            }
+        }
+    }
 }).mount('#app');

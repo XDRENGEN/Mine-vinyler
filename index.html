@@ -16,22 +16,42 @@
         <div class = "nav-bar"></div>
             <h1>{{ intro }}</h1>
 
-            <div>Id: <input v-model="newVinyl.id"></div>
-            <div>Artist: <input v-model="newVinyl.artist"></div>
-            <div>Album: <input v-model="newVinyl.album"></div>
-            <div>Year: <input v-model="newVinyl.year"></div>
-            <div>Genre: <input v-model="newVinyl.genre"></div>
-            <div>Label: <input v-model="newVinyl.label"></div>
+            <div>Id: <input v-model="newVinyl.id"></div><br>
+            <div>Artist: <input v-model="newVinyl.artist"></div><br>
+            <div>Album: <input v-model="newVinyl.album"></div><br>
+            <div>Year: <input v-model="newVinyl.year"></div><br>
+            <div>Genre: <input v-model="newVinyl.genre"></div><br>
+            <div>Label: <input v-model="newVinyl.label"></div><br>
 
-            <button v-on:click="addMethod">Tilføj vinyl</button>
+            <button v-on:click="addMethod">Tilføj vinyl</button><br>
 
 
             <h2>Min vinyl samling:</h2>
+
+
             <ul>
                 <li v-for="vinyl in liste" :key="vinyl.id">
                     {{ vinyl.artist }} - "{{ vinyl.album }}" ({{ vinyl.year }}) - Genre: {{ vinyl.genre }} - Label: {{ vinyl.label }}
+                    <button v-on:click="selectVinylForEdit(vinyl)">Rediger</button>
+                    <button v-on:click="deleteVinyl(vinyl.id)">Slet</button>
                 </li>
             </ul>
+
+            <div v-if="editVinyl">
+                <h3>Edit Vinyl</h3>
+                <form @submit.prevent="saveEditedVinyl">
+                    <input type="text" v-model="editVinyl.artist" placeholder="Artist"><br><br>
+                    <input type="text" v-model="editVinyl.album" placeholder="Album"><br><br>
+                    <input type="text" v-model="editVinyl.year" placeholder="Year"><br><br>
+                    <input type="text" v-model="editVinyl.genre" placeholder="Genre"><br><br>
+                    <input type="text" v-model="editVinyl.label" placeholder="Label"><br><br>
+
+                    <div class="click-actions-2">
+                        <button type="submit"class="save-button">Gem</button><br><br>
+                        <button type="buttom" @click="editVinyl = null" class="cancel-button">Annuler</button><br><br>
+                    </div>
+                </form>
+            </div>
     </div>
     
 
