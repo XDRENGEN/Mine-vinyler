@@ -14,26 +14,29 @@
     <!-- HUSK alt vue skal være inde i denne <div> -->
     <div id="app">
         <div class = "nav-bar"></div>
-            <h1>{{ intro }}</h1>
+            <h1>{{ intro }}</h1><br><br>
 
-            <div>Id: <input v-model="newVinyl.id"></div><br>
+            <h2>{{ intro2 }}</h2>
+
             <div>Artist: <input v-model="newVinyl.artist"></div><br>
             <div>Album: <input v-model="newVinyl.album"></div><br>
             <div>Year: <input v-model="newVinyl.year"></div><br>
             <div>Genre: <input v-model="newVinyl.genre"></div><br>
             <div>Label: <input v-model="newVinyl.label"></div><br>
 
-            <button v-on:click="addMethod">Tilføj vinyl</button><br>
+            <button v-on:click="addMethod" class="edit-button">Tilføj vinyl</button><br><br>
 
 
-            <h2>Min vinyl samling:</h2>
+            <h2>{{ intro3 }}</h2>
+            <h3>Her kan man redigere✏️ og slette🗑️ 😉</h3><br><br>
 
+            <button v-on:click="sortVinylsByArtist">Sorter efter artist</button>
 
             <ul>
-                <li v-for="vinyl in liste" :key="vinyl.id">
+                <li v-for="vinyl in liste" :key="vinyl.id" class="vinyl-item">
                     {{ vinyl.artist }} - "{{ vinyl.album }}" ({{ vinyl.year }}) - Genre: {{ vinyl.genre }} - Label: {{ vinyl.label }}
-                    <button v-on:click="selectVinylForEdit(vinyl)">Rediger</button>
-                    <button v-on:click="deleteVinyl(vinyl.id)">Slet</button>
+                    <button v-on:click="selectVinylForEdit(vinyl)" class="edit-button button-spacing" >Rediger</button>
+                    <button v-on:click="deleteVinyl(vinyl.id)" class="delete-button button-spacing" >Slet</button>
                 </li>
             </ul>
 
@@ -47,8 +50,8 @@
                     <input type="text" v-model="editVinyl.label" placeholder="Label"><br><br>
 
                     <div class="click-actions-2">
-                        <button type="submit"class="save-button">Gem</button><br><br>
-                        <button type="buttom" @click="editVinyl = null" class="cancel-button">Annuler</button><br><br>
+                        <button type="submit" class="save-button">Gem</button>
+                        <button type="button" v-on:click="editVinyl = null" class="cancel-button">Annuler</button><br><br>
                     </div>
                 </form>
             </div>

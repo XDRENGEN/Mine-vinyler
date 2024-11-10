@@ -2,6 +2,9 @@ const app = Vue.createApp({
     data() {
         return {
             intro: 'Velkommen til min vinylsamling.',
+            intro2: 'Tilføj en vinyl til samlingen.',
+            intro3: 'Min vinyl samling:',
+
             liste: JSON.parse(localStorage.getItem('vinylliste')) || [],
 
             newVinyl: {
@@ -28,7 +31,6 @@ const app = Vue.createApp({
     methods: {
         addMethod(){
             if (
-                this.newVinyl.id &&
                 this.newVinyl.artist &&
                 this.newVinyl.album &&
                 this.newVinyl.year &&
@@ -65,6 +67,7 @@ const app = Vue.createApp({
         },
 
 
+        
         // Metode til at gemme redigerede oplysninger.
         saveEditedVinyl() {
             const index = this.liste.findIndex(v => v.id === this.editVinyl.id);
@@ -91,6 +94,22 @@ const app = Vue.createApp({
                     localStorage.setItem('vinylliste', JSON.stringify(this.liste));
                 }
             }
-        }
+        },
+
+
+
+        // Metode til sortering stigende og faldende.
+        sortVinylsByArtist() {
+            this.liste.sort((a, b) => {
+                if (this.sortAscending) {
+                    return a.artist.localeCompare(b.artist);
+                } else {
+                    return b.artist.localeCompare(a.artist);
+                }
+            });
+            
+            // Her skiftes sorteringsretningen.
+            this.sortAscending = !this.sortAscending;
+        },
     }
 }).mount('#app');
