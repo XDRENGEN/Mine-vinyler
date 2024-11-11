@@ -37,9 +37,9 @@ const app = Vue.createApp({
                 this.newVinyl.genre &&
                 this.newVinyl.label
             ) {
-                this.newVinyl.id = Date.now();
+                this.newVinyl.id = Date.now(); // Tildeler et unikt id til vinyl.
 
-                this.liste.push({ ...this.newVinyl });
+                this.liste.push({ ...this.newVinyl }); // Tilføjer vinyl til listen.
 
                 // Gemmer i local storage.
                 localStorage.setItem('vinylliste', JSON.stringify(this.liste));
